@@ -34,5 +34,5 @@ endif ()
 ##################
 #  Config files  #
 ##################
-configure_file("${CMAKE_CURRENT_SOURCE_DIR}/../../common/data/data.csv"
-  "${BIN_TEST_DIR}/../../data/data.csv") COPYONLY)
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/../common/data/data.csv"
+  "${BIN_TEST_DIR}/data.csv" COPYONLY)

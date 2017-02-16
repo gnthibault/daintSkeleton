@@ -46,11 +46,10 @@ endif()
 ###############
 #  Src files  #
 ###############
-
 set(sources
   lib.cpp
   # cuda source files
-  ${sources_cuda}i
+  ${sources_cuda}
   # mpi source  files
   ${sources_mpi}
 )
