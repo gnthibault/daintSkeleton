@@ -4,6 +4,7 @@
 #include<lib.h>
 
 int main(int argc, char* argv[]) {
-  libCall();
+  LibObj l;
+  l.libCall();  
   return EXIT_SUCCESS;
 }

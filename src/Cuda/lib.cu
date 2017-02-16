@@ -1,8 +1,7 @@
-#include <Cuda/lib.cu.h>
+#include "Cuda/lib.cu.h"
 
 //Cuda libraries includes
 #include <cuda_runtime.h>
-
 
 //Kernel definition
 __global__ void printKernel() {

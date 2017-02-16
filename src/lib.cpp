@@ -1,10 +1,10 @@
-#include <lib.h>
+#include "lib.h"
+
+#include <iostream>
 
 #ifdef GPU_CUDA
   #include "Cuda/lib.cu.h"
 #endif //GPU_CUDA
-
-#include <iostream>
 
 void LibObj::libCall() {
 #ifdef GPU_CUDA

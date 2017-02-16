@@ -22,7 +22,7 @@ if (CUDA_FOUND)
 endif ()
 ################
 #  /Cuda Part  #
-################
+################i
 
 ############
 # MPI Part #
@@ -37,11 +37,24 @@ if(MPI_FOUND)
   set(headers_mpi
   )
   #runtime libs for mpi
-  set(mpi_deps boost_mpi)
+  set(mpi_deps)
 endif()
 #############
 # /MPI Part #
 #############
+
+###############
+# Boost part  #
+###############
+find_package(Boost COMPONENTS mpi serialization) 
+
+if(Boost_FOUND)
+    include_directories(${Boost_INCLUDE_DIRS}) 
+    set(boost_deps boost_mpi) #${Boost_LIBRARIES}
+endif()
+################
+# /Boost part  #
+################
 
 ###############
 #  Src files  #

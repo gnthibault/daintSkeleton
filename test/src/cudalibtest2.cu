@@ -1,3 +1,6 @@
+#include <cstdlib>
+
+//local
 #include <lib.h>
 
 int main(int argc, char* argv[]) {
