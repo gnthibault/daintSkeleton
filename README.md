@@ -4,5 +4,14 @@
 Serves as a project skeleton
 
 ## How to build ?
+
 cd daintSkeleton
-cmake -DBINDIR=$SCRATCH
+mkdir build; cd build
+cmake -DBINDIR=$SCRATCH ..
+make install
+
+## How to test
+In the build directory, do:
+make test
+
+

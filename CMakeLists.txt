@@ -55,6 +55,11 @@ if (CUDA_FOUND)
   endif ()
 endif ()
 
+#############
+#  Testing  #
+#############
+enable_testing()
+
 #####################################
 #  Adding various code directories  #
 #####################################
