@@ -1,100 +1,88 @@
-cmake_minimum_required (VERSION 3.5)
+cmake_minimum_required(VERSION 3.5)
 
-########################################
-####        Generic Part            ####
-########################################
+#################
+#  Generic Part #
+#################
 
-project( lib )
-set( OUTPUT_NAME lib )
+project(lib)
+set(OUTPUT_NAME lib)
 
-######################
-####  /Cuda Part  ####
-######################
-if(CUDA_FOUND)
-
-  set( sources_cuda
+###############
+#  Cuda Part  #
+###############
+if (CUDA_FOUND)
+  set(sources_cuda
     Cuda/lib.cu
   )
-
-  set( headers_cuda
+  set(headers_cuda
     Cuda/lib.cu.h
   )
-  
   #runtime libs for cuda
-  set( cuda_deps cudadevrt nvToolsExt )
-endif()
-######################
-####  /Cuda Part  ####
-######################
+  set(cuda_deps cudadevrt nvToolsExt)
+endif ()
+################
+#  /Cuda Part  #
+################
 
-####################
-####  MPI Part  ####
-####################
-find_package ( MPI )
-if ( MPI_FOUND )
-  include_directories( ${MPI_INCLUDE_PATH} )
-
+############
+# MPI Part #
+############
+find_package(MPI)
+if(MPI_FOUND)
+  include_directories(${MPI_INCLUDE_PATH})
   #Allowing MPI specific code
-  add_definitions( -DUSE_MPI )
-
-  set( sources_mpi
+  add_definitions(-DUSE_MPI)
+  set(sources_mpi
   )
-  set( headers_mpi
+  set(headers_mpi
   )
-	
   #runtime libs for mpi
-  set( mpi_deps boost_mpi )
+  set(mpi_deps boost_mpi)
 endif()
-########################################
-####           /MPI Part            ####
-########################################
+#############
+# /MPI Part #
+#############
 
+###############
+#  Src files  #
+###############
 
-########################################
-####	        Src files           ####
-########################################
-
-set( sources
+set(sources
   lib.cpp
-
   # cuda source files
   ${sources_cuda}i
-
   # mpi source  files
   ${sources_mpi}
 )
 
-set( headers
+set(headers
   lib.h
-
   # cuda header files
   ${headers_cuda}
-
   #mpi header files
   ${headers_mpi} 
 )
 
-
-########################################
-####	       Executable           ####
-########################################
+################
+#  Executable  #
+################
 
 if (CUDA_FOUND)
-	cuda_add_library( ${OUTPUT_NAME} SHARED ${sources} ${headers} )
-	#CUDA_ADD_CUBLAS_TO_TARGET( ${OUTPUT_NAME} )
+  cuda_add_library(${OUTPUT_NAME} SHARED ${sources} ${headers})
+  #CUDA_ADD_CUBLAS_TO_TARGET(${OUTPUT_NAME})
 else ()
-	add_library (${OUTPUT_NAME} SHARED ${sources} ${headers})
+  add_library(${OUTPUT_NAME} SHARED ${sources} ${headers})
 endif ()
 
-target_link_libraries( ${OUTPUT_NAME} ${cuda_deps} ${mpi_deps})
+target_link_libraries(${OUTPUT_NAME} ${cuda_deps} ${mpi_deps})
 
-export (TARGETS
-  ${OUTPUT_NAME}
+export(TARGETS ${OUTPUT_NAME}
   FILE ${CMAKE_SOURCE_DIR}/exports/${BUILD_DIR_LAST_PART}/${output_name}-exports.cmake
 )
 
-set_property(TARGET ${OUTPUT_NAME} PROPERTY OUTPUT_NAME ${output_name})
+set_property(TARGET ${OUTPUT_NAME}
+  PROPERTY OUTPUT_NAME ${output_name})
 
-install (TARGETS ${OUTPUT_NAME}
-	RUNTIME DESTINATION bin
+install(TARGETS ${OUTPUT_NAME}
+  LIBRARY DESTINATION ${RUNTIME_DEST}
 )
