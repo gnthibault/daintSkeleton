@@ -7,6 +7,7 @@ Serves as a project skeleton
 cd daintSkeleton
 mkdir build; cd build
 mkdir $SCRATCH/MyProject 
+../scripts/initBuild.sh
 cmake -DBINDIR=$SCRATCH/MyProject ..
 make install
 
@@ -15,4 +16,5 @@ In the build directory, do:
 make test
 
 ## How to run on Piz daint
-cd $SCRATCH/MyProject 
+../scripts/launchApp1.sh $SCRATCH/MyProject
+

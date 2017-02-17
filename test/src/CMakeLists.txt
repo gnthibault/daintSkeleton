@@ -30,9 +30,12 @@ if (CUDA_FOUND)
   add_test(NAME cudalibtest2 COMMAND cudalibtest2)
 endif ()
 
-
 ##################
 #  Config files  #
 ##################
-configure_file("${CMAKE_CURRENT_SOURCE_DIR}/../common/data/data.csv"
-  "${BIN_TEST_DIR}/data.csv" COPYONLY)
+set(DATA_FILES
+  "${TEST_ROOT_DIR}/common/data/data.csv"
+)
+
+install(FILES ${DATA_FILES}
+  DESTINATION ${BIN_TEST_DIR} COMPONENT data)
