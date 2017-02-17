@@ -8,7 +8,7 @@ cd daintSkeleton
 mkdir build; cd build  
 mkdir $SCRATCH/MyProject  
 source ../scripts/initBuild.sh  
-CXX=CC CC=cc cmake -DBINDIR=$SCRATCH/MyProject ..  
+CXX=CC CC=cc cmake -DBINDIR=$SCRATCH/MyProject -DUSE_NVCTX ..  
 make -j8 install  
 
 ## How to test
@@ -16,5 +16,5 @@ In the build directory, do:
 make test  
 
 ## How to run on Piz daint
-../scripts/launchApp1.sh $SCRATCH/MyProject  
-
+in the directory  $SCRATCH/MyProject, do  
+sbatch ./launchApp1.sh

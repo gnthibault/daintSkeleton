@@ -33,6 +33,11 @@ find_package(CUDA 8.0)
 
 if (CUDA_FOUND)
   add_definitions(-DGPU_CUDA)
+  
+  #Eventually add some code instrumentation
+  if (USE_NVCTX)
+    add_definitions(-DUSE_NVCTX)
+  endif ()
 
   #generic compilation flag, defines target architecture, type of build, ...
   list(APPEND CUDA_NVCC_FLAGS
