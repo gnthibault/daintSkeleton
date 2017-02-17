@@ -59,8 +59,9 @@ if (CUDA_FOUND)
   else ()
     list(APPEND CUDA_NVCC_FLAGS
       -use_fast_math
-      -O3) #--default-stream per-thread )
+      -O3)
   endif ()
+  link_directories(${CUDA_TOOLKIT_ROOT_DIR}/lib64)
 endif ()
 
 #############
