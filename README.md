@@ -9,7 +9,7 @@ mkdir build; cd build
 mkdir $SCRATCH/MyProject 
 ../scripts/initBuild.sh
 cmake -DBINDIR=$SCRATCH/MyProject ..
-make install
+make -j8 install
 
 ## How to test
 In the build directory, do:
