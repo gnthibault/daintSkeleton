@@ -88,10 +88,6 @@ endif ()
 
 target_link_libraries(${OUTPUT_NAME} ${cuda_deps} ${mpi_deps})
 
-export(TARGETS ${OUTPUT_NAME}
-  FILE ${CMAKE_SOURCE_DIR}/exports/${BUILD_DIR_LAST_PART}/${output_name}-exports.cmake
-)
-
 set_property(TARGET ${OUTPUT_NAME}
   PROPERTY OUTPUT_NAME ${output_name})
 
