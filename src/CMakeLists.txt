@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 3.5)
 
 project(lib)
 set(OUTPUT_NAME lib)
-
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 ###############
 #  Cuda Part  #
 ###############
