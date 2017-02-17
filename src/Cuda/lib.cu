@@ -12,8 +12,8 @@ __global__ void printKernel() {
 }
 
 void libCallCuda() {
-  PUSH_NVCTX("MyGPUPrint",0)
+  PUSH_NVTX("MyGPUPrint",0)
   printKernel<<<1,1,0,0>>>();
   checkCudaErrors(cudaDeviceSynchronize());
-  POP_NVCTX
+  POP_NVTX
 }

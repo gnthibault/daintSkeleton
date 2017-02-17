@@ -8,7 +8,7 @@ cd daintSkeleton
 mkdir build; cd build  
 mkdir $SCRATCH/MyProject  
 source ../scripts/initBuild.sh  
-CXX=CC CC=cc cmake -DBINDIR=$SCRATCH/MyProject -DUSE_NVCTX=yes -DCMAKE_BUILD_TYPE=Release ..  
+CXX=CC CC=cc cmake -DBINDIR=$SCRATCH/MyProject -DUSE_NVTX=yes -DCMAKE_BUILD_TYPE=Release ..  
 make -j8 install  
 
 ## How to test

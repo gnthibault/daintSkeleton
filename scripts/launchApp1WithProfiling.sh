@@ -1,27 +1,33 @@
+#!/bin/bash
+
 #SBATCH --job-name="MyProjectWithProfiling"
 #SBATCH --time=00:05:00
 #SBATCH --constraint=gpu
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --partition=debug
-#SBATCH --output=app1Nvprof.%h.%p.o
-#SBATCH --error=app1.%j.e
 
+unset COMPUTE_PROFILE 
+export PMI_NO_FORK=1 
+
+#Go check http://docs.nvidia.com/cuda/profiler-users-guide/index.html#metrics-reference-6x
+#For a list of metrics
 #======START=====
-srun nvprof --metrics \
-  flop_count_sp_add,\
-  flop_count_sp_fma,\
-  flop_count_sp_mul,\
-  flop_count_sp_special,\
-  inst_fp_32,\
-  gst_transactions,\
-  gld_transactions,\
-  tex_cache_transactions,\
-  l2_atomic_transactions,\
-  l1_cache_local_hit_rate,\
-  tex_cache_hit_rate,\
-  l2_l1_read_hit_rate,\
-  l2_texture_read_hit_rate\
-  --demangling on --csv ./app1
+srun nvprof -o app1.%h.%p.nvvp\
+  --metrics \
+flops_dp,\
+flop_count_dp_add,\
+flop_count_dp_mul,\
+flop_count_dp_fma,\
+flop_dp_efficiency,\
+gld_throughput,\
+gld_transactions,\
+gst_throughput,\
+gst_transactions,\
+inst_compute_ld_st,\
+inst_control,\
+inst_executed,\
+inst_fp_64\
+  ./app1
 #=====END====
 

@@ -35,8 +35,8 @@ if (CUDA_FOUND)
   add_definitions(-DGPU_CUDA)
   
   #Eventually add some code instrumentation
-  if (USE_NVCTX)
-    add_definitions(-DUSE_NVCTX)
+  if (USE_NVTX)
+    add_definitions(-DUSE_NVTX)
   endif ()
 
   #generic compilation flag, defines target architecture, type of build, ...

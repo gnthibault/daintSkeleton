@@ -19,13 +19,13 @@ inline void __checkCudaErrors(cudaError err, const char *file, const int line)
 *  Code Instrumentation
 */
 
-#ifdef USE_NVCTX
+#ifdef USE_NVTX
   #include "nvToolsExt.h"
   const uint32_t colors[] = { 0x0000ff00, 0x000000ff, 0x00ffff00, 0x00ff00ff,
     0x0000ffff, 0x00ff0000, 0x00ffffff };
   const int num_colors = sizeof(colors)/sizeof(uint32_t);
  
-  #define PUSH_NVCTX(name,cid) { \
+  #define PUSH_NVTX(name,cid) { \
   int color_id = cid; \
     color_id = color_id%num_colors;\
     nvtxEventAttributes_t eventAttrib = {0}; \
@@ -38,10 +38,10 @@ inline void __checkCudaErrors(cudaError err, const char *file, const int line)
     nvtxRangePushEx(&eventAttrib); \
   }
 
-  #define POP_NVCTX nvtxRangePop();
-#else //USE_NVCTX
-  #define PUSH_NVCTX(name,cid)
-  #define POP_NVCTX
-#endif //USE_NVCTX
+  #define POP_NVTX nvtxRangePop();
+#else //USE_NVTX
+  #define PUSH_NVTX(name,cid)
+  #define POP_NVTX
+#endif //USE_NVTX
 
 
