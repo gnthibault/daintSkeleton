@@ -32,6 +32,8 @@ endif ()
 find_package(CUDA 8.0)
 
 if (CUDA_FOUND)
+  add_definitions(-DGPU_CUDA)
+
   #generic compilation flag, defines target architecture, type of build, ...
   list(APPEND CUDA_NVCC_FLAGS
     -gencode arch=compute_60,code=sm_60
