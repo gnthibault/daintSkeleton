@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #SBATCH --job-name="MyProject"
 #SBATCH --time=00:05:00
 #SBATCH --constraint=gpu
