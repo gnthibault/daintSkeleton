@@ -37,7 +37,8 @@ if (CUDA_FOUND)
     -gencode arch=compute_60,code=sm_60
     -std=c++11
     --expt-extended-lambda
-    -rdc=true )
+    -rdc=true
+    -Xcompiler -fPIC)
 
   set(CUDA_SEPARABLE_COMPILATION ON)
 
