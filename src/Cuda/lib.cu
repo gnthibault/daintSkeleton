@@ -4,7 +4,7 @@
 #include <cuda_runtime.h>
 
 //Local
-#include "Cuda/helper.h"
+#include "Cuda/helper.cu.h"
 
 //Kernel definition
 __global__ void printKernel() {
