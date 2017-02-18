@@ -8,6 +8,12 @@ if (BINDIR)
 else ()
   set(RUNTIME_DEST ${CMAKE_CURRENT_BINARY_DIR}/bin)
 endif ()
+
+#cmake refs
+set(PRJ_CMAKE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PRJ_CMAKE_DIR})
+
+
 #################################
 #  Generic Compilation options  #
 #################################
@@ -86,6 +92,15 @@ if (DOXYGEN_FOUND)
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     COMMENT "Generating API documentation with Doxygen" VERBATIM)
 endif ()
+
+##############
+#  Cppcheck  #
+##############
+
+# Add a target to generate Cppcheck report
+include(${PRJ_CMAKE_DIR}/gen_cppcheck.cmake)
+GENERATE_CPPCHECK(SOURCEDIRS src app test 
+  ENABLE_IDS warning style performance portability information)
 
 #####################################
 #  Adding various code directories  #

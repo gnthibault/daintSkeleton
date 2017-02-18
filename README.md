@@ -20,11 +20,18 @@ In the build directory, do:
 make test  
 
 ## How to run on Piz daint
-in the directory  $SCRATCH/MyProject, do  
+in the directory  $SCRATCH/MyProject, do:  
 sbatch ./launchApp1.sh
 
 ## How to run a profiling version
-in the directory  $SCRATCH/MyProject, do  
+in the directory  $SCRATCH/MyProject, do:  
 sbatch ./launchApp1WithProfiling.sh
 
+## How to generate doxygen documentation
+In the build directory, do:  
+make doc  
+The documentation should be build in the "doc" directory
 
+## How to perform static code analysis with cppcheck
+In the build directory, do:  
+make cppcheck
