@@ -10,7 +10,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 ###############
 #  Cuda Part  #
 ###############
-if (CUDA_FOUND)
+if (CUDA_FOUND AND USE_CUDA)
   set(sources_cuda
     Cuda/lib.cu
   )

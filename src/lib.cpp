@@ -2,14 +2,14 @@
 
 #include <iostream>
 
-#ifdef GPU_CUDA
+#ifdef USE_CUDA
   #include "Cuda/lib.cu.h"
-#endif //GPU_CUDA
+#endif //USE_CUDA
 
 void LibObj::libCall() {
-#ifdef GPU_CUDA
+#ifdef USE_CUDA
   libCallCuda();
-#else //GPU_CUDA
+#else //USE_CUDA
   std::cout << "This is libCall from LibObj" << std::endl;
-#endif //GPU_CUDA
+#endif //USE_CUDA
 }

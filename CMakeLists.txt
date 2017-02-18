@@ -31,8 +31,8 @@ endif ()
 
 find_package(CUDA 8.0)
 
-if (CUDA_FOUND)
-  add_definitions(-DGPU_CUDA)
+if (CUDA_FOUND AND USE_CUDA)
+  add_definitions(-DUSE_CUDA)
   
   #Eventually add some code instrumentation
   if (USE_NVTX)
@@ -68,6 +68,24 @@ endif ()
 #  Testing  #
 #############
 enable_testing()
+
+########################################
+####        Doxygen Part            ####
+########################################
+
+# Add a target to generate API documentation with Doxygen
+find_package(Doxygen)
+if (DOXYGEN_FOUND)
+  set(DOC_INSTALL_DIR "${CMAKE_CURRENT_BINARY_DIR}/doc")
+  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in
+    ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
+  add_custom_target(
+    doc
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${DOC_INSTALL_DIR}
+    COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    COMMENT "Generating API documentation with Doxygen" VERBATIM)
+endif ()
 
 #####################################
 #  Adding various code directories  #
