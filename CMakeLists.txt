@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 
 project(daintSkeleton)
+set(PROJECT_NAME daintSkeleton)
 
 #Destination
 if (BINDIR)
@@ -100,7 +101,10 @@ endif ()
 # Add a target to generate Cppcheck report
 include(${PRJ_CMAKE_DIR}/gen_cppcheck.cmake)
 GENERATE_CPPCHECK(SOURCEDIRS src app test 
-  ENABLE_IDS warning style performance portability information)
+  ENABLE_IDS warning style performance portability information
+  INCLUDES ${CURRENT_SOURCE_DIR}
+  PROJECT_NAME ${PROJECT_NAME}
+)
 
 #####################################
 #  Adding various code directories  #

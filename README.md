@@ -34,4 +34,5 @@ The documentation should be build in the "doc" directory
 
 ## How to perform static code analysis with cppcheck
 In the build directory, do:  
-make cppcheck
+make cppcheck  
+The cppcheck report can be found in the directory cppcheckdir-report
