@@ -1,27 +1,89 @@
 
-/** \class LibObj
- * \brief Dummy class used to illustrate a c++ library project
- *
- * \author John Doe
- */
+//STL
+#include <iostream>
+#include <cstdint>
+#include <numeric>
+#include <iomanip>
 
-class LibObj {
+//Boost
+#include <boost/iterator/transform_iterator.hpp>
+#include <boost/iterator/counting_iterator.hpp>
+
+//Local
+#ifdef USE_CUDA
+  #include "Cuda/lib.cu.h"
+#endif //USE_CUDA
+
+/** \struct Integrator
+ * \brief operator to be mapped over a range before composing with
+ * the range accumulator
+ *
+ * \author Thibault Notargiacomo
+ */
+template<typename T, typename F>
+struct Integrator{
+  Integrator(T step, T lowerBound, F func): m_step(step),
+    m_lowerBound(lowerBound), m_func(func) {};
+  T operator()(uint64_t i) const {
+    return m_func(m_lowerBound+(i+0.5)*m_step);
+  }
+  const T m_step;
+  const T m_lowerBound;
+  const F m_func;
+};
+
+/** \class NumericalMidPointIntegrator1D
+ * \brief Performs numerical integration on a 1D domain
+ *
+ * \author Thibault Notargiacomo
+ */
+template<typename T>
+class NumericalMidPointIntegrator1D {
 public:
-  /// Constructor defaulted on purpose
-  LibObj()=default;
+  /// Constructor that force domain bounds definition
+  NumericalMidPointIntegrator1D(T lowerBound, T upperBound, uint64_t nbSteps):
+    m_lowerBound(lowerBound), m_upperBound(upperBound),
+    m_nbSteps(nbSteps) {};
+
   /// Destructor defaulted on purpose
-  virtual ~LibObj()=default;
+  virtual ~NumericalMidPointIntegrator1D()=default;
 
   /**
+   * Function that will integrate a 1D scalar function over a 1D domain whose
+   * bounds are defined by 2 fields in the object
    *
-   * Dummy function that should simply print out if it was executed
-   * on a regular CPU, or on GPU
+   * \param[in] f the 1D scalar function to be integrated
    *
-   * \param[in] arg1 that's where arg1 description should go if there was one
-   *
-   * \param[out] arg2 that's where arg1 description should go if there was one
-   *
-   * \return Actually nothing
+   * \return The value of the numerical integral
    */
-  void libCall();
+  template<typename F>
+  T Integrate(F f) {
+    T pi, sum = 0.0, step = (m_upperBound-m_lowerBound)/m_nbSteps;
+    Integrator<T,F> op(step,m_lowerBound,f);
+    #ifdef USE_CUDA
+
+    #else //USE_CUDA
+    sum = std::accumulate(
+      boost::make_transform_iterator(
+        boost::make_counting_iterator<uint64_t>(0), op),
+      boost::make_transform_iterator(
+        boost::make_counting_iterator<uint64_t>(m_nbSteps), op),
+      0.0, std::plus<T>());
+    #endif //USE_CUDA
+    pi = sum*step;
+    std::cout << "Pi has value "<<std::setprecision(10)<<pi<< std::endl;
+    return sum;
+  }
+
+private:
+  /// Lower bound for numerical integration
+  const T m_lowerBound;
+
+  /// Upper bound for numerical integration
+  const T m_upperBound;
+
+  /// Number of node used to defined the discrete grid
+  const uint64_t m_nbSteps;
 };
+
+

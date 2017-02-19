@@ -46,12 +46,12 @@ endif()
 ###############
 # Boost part  #
 ###############
-#find_package(Boost COMPONENTS mpi serialization) 
+find_package(Boost COMPONENTS mpi serialization) 
 
-#if(Boost_FOUND)
-#    include_directories(${Boost_INCLUDE_DIRS}) 
-#    set(boost_deps boost_mpi) #${Boost_LIBRARIES}
-#endif()
+if(Boost_FOUND)
+  include_directories(${Boost_INCLUDE_DIRS}) 
+  set(boost_deps boost_mpi) #${Boost_LIBRARIES}
+endif()
 ################
 # /Boost part  #
 ################
