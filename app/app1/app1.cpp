@@ -16,8 +16,5 @@ int main(int argc, char* argv[]) {
   NumericalMidPointIntegrator1D<T> n(0,1,nbSteps);
   auto ret = n.Integrate(f);
 
-  //#include<cassert>
-  //assert(std::abs(ret-M_PI)<1.0e-3);
-    
   return EXIT_SUCCESS;
 }

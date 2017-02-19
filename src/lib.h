@@ -71,8 +71,7 @@ public:
       0.0, std::plus<T>());
     #endif //USE_CUDA
     pi = sum*step;
-    std::cout << "Pi has value "<<std::setprecision(10)<<pi<< std::endl;
-    return sum;
+    return pi;
   }
 
 private:
