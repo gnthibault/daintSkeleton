@@ -5,7 +5,7 @@ Serves as a project skeleton
 
 ## Pre-requisite
 If you want to enjoy all features of this small project builder, please consider installing the following packages (example for ubuntu):  
-sudo apt-get install doxygen graphviz cppcheck
+sudo apt-get install doxygen graphviz cppcheck libopenmpi-dev
 
 ## How to build for Piz Daint ?
 cd daintSkeleton  

@@ -68,8 +68,36 @@ if (CUDA_FOUND AND USE_CUDA)
       -use_fast_math
       -O3)
   endif ()
+  #runtime libs for cuda
+  set(cuda_deps cudadevrt nvToolsExt)
   link_directories(${CUDA_TOOLKIT_ROOT_DIR}/lib64)
 endif ()
+
+############
+# MPI Part #
+############
+find_package(MPI)
+if (MPI_FOUND)
+  include_directories(${MPI_INCLUDE_PATH})
+  #runtime libs for mpi
+  set(mpi_deps mpi mpi_cxx)
+endif ()
+#############
+# /MPI Part #
+#############
+
+###############
+# Boost part  #
+###############
+find_package(Boost COMPONENTS mpi serialization) 
+if (Boost_FOUND)
+  include_directories(${Boost_INCLUDE_DIRS}) 
+  #runtime libs for boost
+ set(boost_deps boost_mpi) #${Boost_LIBRARIES}
+endif ()
+################
+# /Boost part  #
+################
 
 #############
 #  Testing  #

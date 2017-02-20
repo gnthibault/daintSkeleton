@@ -1,4 +1,3 @@
 #include "lib.h"
 
-//No actual instanciated code
-
+//No actual explicit instanciation because they would be useless
