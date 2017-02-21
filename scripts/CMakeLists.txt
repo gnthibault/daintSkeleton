@@ -12,7 +12,8 @@ set(PROJECT_NAME launchScript)
 ##################
 set(CONFIG_FILES
   launchApp1.sh
-  launchApp1WithProfiling.sh
+  launchApp2.sh
+  launchApp2WithProfiling.sh
 )
 
 install(FILES ${CONFIG_FILES}
