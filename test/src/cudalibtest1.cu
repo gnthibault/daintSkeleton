@@ -10,7 +10,7 @@ int main(int argc, char* argv[]) {
   
   //Define the function to be integrated between 0 and 1 to get pi
   uint64_t nbSteps = 100000000;
-  auto f = [] __device__ (T x){ return 4./(1.+x*x);};
+  auto f = [] __host__ __device__ (T x){ return 4./(1.+x*x);};
   T lowBound=0, upBound=1;
 
   // Init mpi and monitor runtime

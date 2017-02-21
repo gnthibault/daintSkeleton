@@ -24,7 +24,7 @@ struct Integrator{
   Integrator(T step, T lowerBound, F func): m_step(step),
     m_lowerBound(lowerBound), m_func(func) {};
   T operator()(uint64_t i) const {
-    return m_func(m_lowerBound+(i+0.5)*m_step);
+    return m_func(m_lowerBound+((T)i+0.5)*m_step);
   }
   const T m_step;
   const T m_lowerBound;
