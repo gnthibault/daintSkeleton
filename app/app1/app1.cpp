@@ -10,7 +10,7 @@ int main(int argc, char* argv[]) {
   using T = double;
 
   //Define the function to be integrated between 0 and 1 to get pi
-  uint64_t nbSteps = 100000000;
+  uint64_t nbSteps = 1e9;
   auto f = [](T x){ return 4./(1.+x*x);};
   T lowBound=0, upBound=1;
 

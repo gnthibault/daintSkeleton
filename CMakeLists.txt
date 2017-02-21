@@ -80,7 +80,7 @@ find_package(MPI)
 if (MPI_FOUND)
   include_directories(${MPI_INCLUDE_PATH})
   #runtime libs for mpi
-  set(mpi_deps mpi mpi_cxx)
+  set(mpi_deps ${MPI_CXX_LIBRARIES})
 endif ()
 #############
 # /MPI Part #
@@ -91,7 +91,8 @@ endif ()
 ###############
 find_package(Boost COMPONENTS mpi serialization) 
 if (Boost_FOUND)
-  include_directories(${Boost_INCLUDE_DIRS}) 
+  include_directories(${Boost_INCLUDE_DIRS})
+  link_directories(${Boost_LIBRARY_DIRS})
   #runtime libs for boost
  set(boost_deps boost_mpi) #${Boost_LIBRARIES}
 endif ()
