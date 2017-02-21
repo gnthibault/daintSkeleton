@@ -13,7 +13,7 @@ export PMI_NO_FORK=1
 #Go check http://docs.nvidia.com/cuda/profiler-users-guide/index.html#metrics-reference-6x
 #For a list of metrics
 #======START=====
-srun nvprof -o app1.%h.%p.nvvp\
+srun nvprof -o app2.%h.%p.nvvp\
   --metrics \
 flops_dp,\
 flop_count_dp_add,\

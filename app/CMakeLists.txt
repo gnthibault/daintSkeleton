@@ -6,3 +6,6 @@ cmake_minimum_required (VERSION 3.5)
 
 add_subdirectory( app1 )
 
+if (CUDA_FOUND AND USE_CUDA)
+  add_subdirectory( app2 )
+endif ()

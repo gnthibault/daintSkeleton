@@ -1,6 +1,5 @@
 //STL
 #include <cstdlib> 
-#include <cassert> 
 
 //Local
 #include <Cuda/lib.cu.h>
@@ -22,9 +21,12 @@ int main(int argc, char* argv[]) {
   NumericalMidPointIntegrator1DCuda<T> n(lowBound,upBound,nbSteps);
   auto approx = n.Integrate(f);
   
-  // Check if pi approximation is good
+  // Print out pi value and time elapsed since beginning
   if (world.rank() == 0) {
-    assert(std::abs(approx-M_PI)<1.0e-12);
+    std::cout << "Pi is approximately "<< std::setprecision(10)
+      << approx << std::endl;
+    std::cout << "Elapsed time " << std::setprecision(6)
+      << timer.elapsed() << "s" << std::endl;
   }
 
   return EXIT_SUCCESS;

@@ -29,8 +29,6 @@ set(sources
   lib.cpp
   # cuda source files
   ${sources_cuda}
-  # mpi source  files
-  ${sources_mpi}
 )
 
 set(headers

@@ -13,11 +13,6 @@
 #include <boost/mpi/environment.hpp>
 #include <boost/mpi/timer.hpp>
 
-//Local
-#ifdef USE_CUDA
-  #include "Cuda/lib.cu.h"
-#endif //USE_CUDA
-
 /** \struct Integrator
  * \brief operator to be mapped over a range before composing with
  * the range accumulator
@@ -50,8 +45,9 @@ public:
     m_nbSteps(nbSteps) {
       m_chunkSize = (m_nbSteps+m_world.size()-1ul)/m_world.size();
       m_gridRes = (m_upperBound-m_lowerBound)/m_nbSteps;
+      m_firstIndex = m_world.rank()*m_chunkSize;
+      m_lastIndex = std::min(m_firstIndex+m_chunkSize,m_nbSteps);
     }
-;
 
   /// Destructor defaulted on purpose
   virtual ~NumericalMidPointIntegrator1D()=default;
@@ -66,23 +62,18 @@ public:
    */
   template<typename F>
   T Integrate(F f) {
-    T lIntVal, gIntVal, res, sum = 0.0;
+    T lIntVal, gIntVal, sum = 0.0;
    
-        // Define local bounds
-    uint64_t firstIndex = m_world.rank()*m_chunkSize;
-    uint64_t lastIndex = std::min(firstIndex+m_chunkSize,m_nbSteps); 
+    // Define the midpoint functor
     Integrator<T,F> op(m_gridRes,m_lowerBound,f);
 
-    #ifdef USE_CUDA
-
-    #else //USE_CUDA
     sum = std::accumulate(
       boost::make_transform_iterator(
-        boost::make_counting_iterator<uint64_t>(firstIndex), op),
+        boost::make_counting_iterator<uint64_t>(m_firstIndex), op),
       boost::make_transform_iterator(
-        boost::make_counting_iterator<uint64_t>(lastIndex), op),
+        boost::make_counting_iterator<uint64_t>(m_lastIndex), op),
       0.0, std::plus<T>());
-    #endif //USE_CUDA
+
     lIntVal = sum*m_gridRes;
 
     // Reduce over all ranks the value of the integral
@@ -91,7 +82,7 @@ public:
     return gIntVal;
   }
 
-private:
+protected:
   /// Lower bound for numerical integration
   const T m_lowerBound;
 
@@ -106,9 +97,13 @@ private:
  
   // Number of nodes per chunk that will be distributed across ranks
   uint64_t m_chunkSize; 
+
+  // First index of the counting iterator in the current rank
+  uint64_t m_firstIndex;
+
+  // Last index of the counting iterator in the current rank
+  uint64_t m_lastIndex; 
  
   /// MPI related communication handler
-  const boost::mpi::communicator m_world;
+  boost::mpi::communicator m_world;
 };
-
-
