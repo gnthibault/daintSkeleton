@@ -48,7 +48,7 @@ public:
   NumericalMidPointIntegrator1D(T lowerBound, T upperBound, uint64_t nbSteps):
     m_lowerBound(lowerBound), m_upperBound(upperBound),
     m_nbSteps(nbSteps) {
-      m_chunkSize = std::max(m_nbSteps/m_world.size(),1ul);
+      m_chunkSize = (m_nbSteps+m_world.size()-1ul)/m_world.size();
       m_gridRes = (m_upperBound-m_lowerBound)/m_nbSteps;
     }
 ;
@@ -68,14 +68,11 @@ public:
   T Integrate(F f) {
     T lIntVal, gIntVal, res, sum = 0.0;
    
-    // Monitor runtime
-    boost::mpi::timer timer;
-
-    // Define local bounds
+        // Define local bounds
     uint64_t firstIndex = m_world.rank()*m_chunkSize;
     uint64_t lastIndex = std::min(firstIndex+m_chunkSize,m_nbSteps); 
-    Integrator<T,F> op(m_gridRes,m_lowerBound+firstIndex*m_gridRes,f);
- 
+    Integrator<T,F> op(m_gridRes,m_lowerBound,f);
+
     #ifdef USE_CUDA
 
     #else //USE_CUDA
@@ -89,13 +86,7 @@ public:
     lIntVal = sum*m_gridRes;
 
     // Reduce over all ranks the value of the integral
-    boost::mpi::all_reduce(m_world, lIntVal, gIntVal, std::plus<T>());
-
-    // Print out pi value and time elapsed since beginning
-    if (m_world.rank() == 0) {
-      std::cout << "Pi is approximately "<< gIntVal << std::endl;
-      std::cout << "Elapsed time " << timer.elapsed() << std::endl;
-    }
+    boost::mpi::reduce(m_world, lIntVal, gIntVal, std::plus<T>(), 0);
 
     return gIntVal;
   }
@@ -118,9 +109,6 @@ private:
  
   /// MPI related communication handler
   const boost::mpi::communicator m_world;
-
-  /// MPI related environment handler
-  const boost::mpi::environment m_env;
 };
 
 
