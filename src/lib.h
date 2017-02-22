@@ -8,10 +8,10 @@
 //Boost
 #include <boost/iterator/transform_iterator.hpp>
 #include <boost/iterator/counting_iterator.hpp>
-#include <boost/mpi/collectives.hpp>
-#include <boost/mpi/communicator.hpp>
-#include <boost/mpi/environment.hpp>
-#include <boost/mpi/timer.hpp>
+#include <collectives.hpp>
+#include <communicator.hpp>
+#include <environment.hpp>
+#include <timer.hpp>
 
 /** \struct Integrator
  * \brief operator to be mapped over a range before composing with
