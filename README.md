@@ -12,7 +12,7 @@ cd daintSkeleton
 mkdir build; cd build  
 mkdir $SCRATCH/MyProject  
 source ../scripts/initBuild.sh  
-CXX=CC CC=cc cmake -DBINDIR=$SCRATCH/MyProject -DUSE_CUDA=ON -DUSE_NVTX=ON -DCMAKE_BUILD_TYPE=Release ..  
+CXX=CC CC=cc cmake -DBINDIR=$SCRATCH/MyProject -DUSE_CUDA=ON -DUSE_NVTX=ON -DCMAKE_BUILD_TYPE=Release -DTHRUST_BACKEND:STRING=CUDA ..  
 make -j8 install  
 
 ## How to test

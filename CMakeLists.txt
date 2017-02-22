@@ -41,7 +41,17 @@ find_package(CUDA 8.0)
 if (CUDA_FOUND AND USE_CUDA)
   add_definitions(-DUSE_CUDA)
   
-  #Eventually add some code instrumentation
+  if (THRUST_BACKEND STREQUAL "OMP") 
+    list(APPEND CUDA_NVCC_FLAGS
+      -DTHRUST_DEVICE_SYSTEM=THRUST_DEVICE_SYSTEM_OMP
+      -Xcompiler -fopenmp)
+    list(APPEND cuda_deps gomp)
+  else () #(THRUST_BACKEND STREQUAL "CUDA")
+    list(APPEND CUDA_NVCC_FLAGS
+      -DTHRUST_DEVICE_SYSTEM=THRUST_DEVICE_SYSTEM_CUDA)
+  endif ()
+
+    #Eventually add some code instrumentation
   if (USE_NVTX)
     add_definitions(-DUSE_NVTX)
   endif ()
@@ -69,7 +79,7 @@ if (CUDA_FOUND AND USE_CUDA)
       -O3)
   endif ()
   #runtime libs for cuda
-  set(cuda_deps cudadevrt nvToolsExt)
+  list(APPEND cuda_deps cudadevrt nvToolsExt)
   link_directories(${CUDA_TOOLKIT_ROOT_DIR}/lib64)
 endif ()
 
