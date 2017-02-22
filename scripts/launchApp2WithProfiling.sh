@@ -28,6 +28,6 @@ inst_compute_ld_st,\
 inst_control,\
 inst_executed,\
 inst_fp_64\
-  ./app1
+  ./app2
 #=====END====
 
