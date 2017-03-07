@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.5)
 #  Lib Dependancy  #
 ####################
 
-include_directories( "../../src" )
+include_directories( "${PRJ_ROOT_DIR}/src" )
 set(lib_deps lib) 
 
 ################

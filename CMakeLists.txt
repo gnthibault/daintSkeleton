@@ -14,6 +14,8 @@ endif ()
 set(PRJ_CMAKE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PRJ_CMAKE_DIR})
 
+#local ref
+set(PRJ_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
 #################################
 #  Generic Compilation options  #

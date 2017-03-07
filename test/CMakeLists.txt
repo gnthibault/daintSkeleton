@@ -2,8 +2,6 @@ cmake_minimum_required(VERSION 3.5)
 
 project(test)
 
-include_directories(../src/)
-
 set(BIN_TEST_DIR ${RUNTIME_DEST}/test)
 set(TEST_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
