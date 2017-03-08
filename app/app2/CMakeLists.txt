@@ -21,7 +21,7 @@ set(headers
 #  Lib Dependancy  #
 ####################
 
-include_directories( "../../src" )
+include_directories("${PRJ_ROOT_DIR}/src")
 
 ################
 #  Executable  #
