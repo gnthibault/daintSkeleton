@@ -6,7 +6,7 @@ set(BIN_TEST_DIR ${RUNTIME_DEST}/test)
 set(TEST_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
 #Add handmade macro to cmake path
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH}
+list(APPEND CMAKE_MODULE_PATH
   "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include(libtest)
 

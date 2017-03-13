@@ -12,7 +12,7 @@ endif ()
 
 #cmake refs
 set(PRJ_CMAKE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PRJ_CMAKE_DIR})
+list(APPEND CMAKE_MODULE_PATH ${PRJ_CMAKE_DIR})
 
 #local ref
 set(PRJ_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
@@ -22,15 +22,15 @@ set(PRJ_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 #################################
 
 #Compiler must support c++11
-ADD_DEFINITIONS(${CMAKE_CXX_FLAGS} "-std=c++14")
+add_definitions(${CMAKE_CXX_FLAGS} "-std=c++14")
 
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
   if (UNIX)
-    ADD_DEFINITIONS (${CMAKE_CXX_FLAGS} "-Wall -O0 -ggdb")
+    add_definitions (${CMAKE_CXX_FLAGS} "-Wall -O0 -ggdb")
   endif ()
 else ()
   if (UNIX)
-    ADD_DEFINITIONS (${CMAKE_CXX_FLAGS} "-O3 -mtune=native -march=native")
+    add_definitions (${CMAKE_CXX_FLAGS} "-O3 -mtune=native -march=native")
   endif ()
 endif ()
 
@@ -157,3 +157,4 @@ add_subdirectory(src)
 add_subdirectory(app)
 add_subdirectory(test)
 add_subdirectory(scripts)
+add_subdirectory(report)
