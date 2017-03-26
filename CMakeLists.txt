@@ -24,14 +24,9 @@ set(PRJ_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 #Compiler must support c++11
 add_definitions(${CMAKE_CXX_FLAGS} "-std=c++14")
 
-if (CMAKE_BUILD_TYPE STREQUAL "Debug")
-  if (UNIX)
-    add_definitions (${CMAKE_CXX_FLAGS} "-Wall -O0 -ggdb")
-  endif ()
-else ()
-  if (UNIX)
-    add_definitions (${CMAKE_CXX_FLAGS} "-O3 -mtune=native -march=native")
-  endif ()
+if (UNIX)
+  add_definitions(${CMAKE_CXX_FLAGS_DEBUG} "-Wall -O0 -ggdb")
+  add_definitions(${CMAKE_CXX_FLAGS_RELEASE} "-O3 -mtune=native -march=native")
 endif ()
 
 ##############################
