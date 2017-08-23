@@ -152,4 +152,7 @@ add_subdirectory(src)
 add_subdirectory(app)
 add_subdirectory(test)
 add_subdirectory(scripts)
-add_subdirectory(report)
+
+if (USE_REPORT)
+  add_subdirectory(report)
+endif ()
